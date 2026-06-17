@@ -1,0 +1,1 @@
+This is a Binary Classification supervised ML project in which we try to predict thr type of electric vehicle (Battery/Plug-in Hybrid) based on the given features. The dataset covers electric cars models from 1999 to 2020 in several American states and counties and 48 brands. 

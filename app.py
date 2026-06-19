@@ -24,7 +24,7 @@ model = joblib.load('best_model.pkl')
 
 # Dividing the webage into multiple sections
 
-page=st.radio('choose an option',['Overview','Analysis','prediction'])
+page=st.sidebar.radio('choose an option',['Overview','Analysis','prediction'])
 
 
 if page == 'Overview':
@@ -34,11 +34,11 @@ if page == 'Overview':
     cols = {'model year':'The manufacturing/model year of the vehicle',
             'make':'The vehicle manufacturer / brand',
             'model':'The model name of the vehicle' , 
-            'electric vehicle type':' BEV (Battery Electric Vehicle) — runs purely on electric battery no combustion engine.\n PHEV (Plug-in Hybrid Electric Vehicle) — has both an electric motor and a gasoline engine',
+            'electric vehicle type':' BEV (Battery Electric Vehicle) — runs purely on electric battery no combustion engine.\n  PHEV (Plug-in Hybrid Electric Vehicle) — has both an electric motor and a gasoline engine',
             'clean alternative fuel vehicle (cafv) eligibility':'Whether the vehicle qualifies  CAFV program (tax/incentive benefits).\n Three possible values:Clean Alternative Fuel Vehicle Eligible — meets the requirements. Not eligible due to low battery range — battery range is too short to qualify. Eligibility unknown as battery range has not been researched — insufficient data to determine',
             'electric range':"The vehicle's all-electric driving range in miles",
             'legislative distric':'legislative district number where the vehicle is registered — used for policy/representation purposes',
-            'number of utilities':'The electric utility company/companies that serve the area where the vehicle is registere',
+            'number of utilities':'The electric utility company/companies that serve the area where the vehicle is registered',
             'location':'city and county in which the vehicle is registered' }
 
 

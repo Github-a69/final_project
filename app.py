@@ -13,7 +13,6 @@ from sklearn.pipeline import Pipeline
 
 st.set_page_config(layout='wide',page_title='electric cars')
 
-st.image('https://images.unsplash.com/photo-1593941707874-ef25b8b4a92b?q=80&w=1172&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')
 
 df=pd.read_csv('clean_electric_vehicle.csv')
 st.dataframe(df)
@@ -29,6 +28,7 @@ page=st.sidebar.radio('choose an option',['Overview','Analysis','prediction'])
 
 if page == 'Overview':
 
+    st.image('https://images.unsplash.com/photo-1593941707874-ef25b8b4a92b?q=80&w=1172&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')
 
     # explaining features meaning
     cols = {'model year':'The manufacturing/model year of the vehicle',
@@ -54,8 +54,8 @@ if page == 'Overview':
 elif page == 'Analysis':
 
 
-    tab_1,tab_2,tab_3,tab_4 = st.tabs(['electric range over time','vehicle type vs. electric range',
-                          'electric range  vs. cafv eligibility','TOP 5 Brands'])
+    tab_1,tab_2,tab_3,tab_4,tab_5 = st.tabs(['electric range over time','vehicle type vs. electric range',
+                          'electric range  vs. cafv eligibility','TOP 5 Brands', 'summary'])
     with tab_1:
         mean = df.groupby('model year')['electric range'].mean().reset_index()
         line = px.line(mean,y='electric range',x='model year')
@@ -71,7 +71,7 @@ elif page == 'Analysis':
     with tab_3:
         group_2 = df.groupby('clean alternative fuel vehicle (cafv) eligibility')['electric range'].mean().reset_index()
         bar_2 = px.bar(group_2,y='electric range',x='clean alternative fuel vehicle (cafv) eligibility',barmode='group')
-        st.plotly_chart(bar_2,use_container_width=False)
+        st.plotly_chart(bar_2,use_container_width=True)
 
 
 
@@ -81,6 +81,15 @@ elif page == 'Analysis':
                    color_discrete_sequence=px.colors.sequential.Blues_r)
         st.plotly_chart(pie,use_container_width=False)
 
+    with tab_5:
+        st.markdown(  
+            'Battery Electric Vehicles tend to have higher average electric range , so it is highly recommended in manufacturing.'
+               )
+        st.markdown(
+            """The electic range of electric cars manufactured in  Washington State is not stable over time but it has reached 
+                its peak in 2010 and 2020. """)
+
+        st.markdown('The eligibility for clean alternative fuel is not highly dependent on the vehicle type.')
 
 
 # prediction page
@@ -117,7 +126,7 @@ else:
     new_df = pd.DataFrame(data= [[year,brand, car_model,cafv, e_range, district, utilities,location ]],
         columns=df.drop('electric vehicle type',axis=1).columns)
 
-    st.dataframe(new_df)
+    df = new_df
 
 
     # Prediction

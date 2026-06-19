@@ -123,16 +123,16 @@ else:
     filtered_locations = df[(df['make'] == brand) & (df['model'] == car_model)]['location'].unique()
     location = st.sidebar.selectbox('Location', filtered_locations)
 
-    new_df = pd.DataFrame(data= [[year,brand, car_model,cafv, e_range, district, utilities,location ]],
-        columns=df.drop('electric vehicle type',axis=1).columns)
-
-    df = new_df
 
 
     # Prediction
+
     if st.button("Predict Vehicle Type"):
 
+        new_df = pd.DataFrame(data= [[year,brand, car_model,cafv, e_range, district, utilities,location ]],
+        columns=df.drop('electric vehicle type',axis=1).columns)
 
+        st.table(new_df)
 
         result = model.predict(new_df)[0]
 
